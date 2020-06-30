@@ -3,9 +3,9 @@
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card">
-          <div class="card-header">Hi {{user}}</div>
+          <div class="card-header">Hi {{ user }}</div>
           <div class="card-body">
-              <button @click="signOut">Sign out</button>
+            <button @click="signOut">Sign out</button>
           </div>
         </div>
       </div>
@@ -14,35 +14,35 @@
 </template>
 
 <script>
-import firebase from "firebase"
-import STORE_CONSTANT from '../store/constant'
+import firebase from "firebase";
+import STORE_CONSTANT from "../store/constant";
 
 const computed = {
-    user() {
-      return this.$store.getters[`${STORE_CONSTANT.GETTERS.USER}`]
-    }
-}
+  user() {
+    return this.$store.getters[`${STORE_CONSTANT.GETTERS.USER}`].data.displayName;
+  },
+};
 
-const data = function(){
-    return {}
-}
+const data = function() {
+  return {};
+};
 
 const methods = {
-    signOut() {
-      firebase
-        .auth()
-        .signOut()
-        .then(() => {
-          this.$router.replace({
-            name: "Login"
-          });
+  signOut() {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        this.$router.replace({
+          name: "Login",
         });
-    }
-}
+      });
+  },
+};
 
 export default {
   computed,
   data,
-  methods
+  methods,
 };
 </script>

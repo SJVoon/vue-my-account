@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <div id="nav" v-if="!isLogin">
       <router-link to="/">Login</router-link> |
       <router-link to="/register">Register</router-link>
     </div>
@@ -9,6 +9,14 @@
 </template>
 
 <script>
+import STORE_CONSTANT from "./store/constant";
+export default {
+  computed : {
+    isLogin() {
+      return this.$store.getters[`${STORE_CONSTANT.GETTERS.USER}`].isLogin;
+    }
+  }
+}
 </script>
 
 <style>
