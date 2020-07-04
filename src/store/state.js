@@ -1,10 +1,11 @@
 let user = {
   isLogin: false,
-  data: null
-}
+  id: "",
+  data: null,
+};
 
 const state = {
-    user
-}
+  user,
+};
 
-export default state
+export default state;

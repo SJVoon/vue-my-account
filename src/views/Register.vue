@@ -85,7 +85,7 @@ export default {
             .updateProfile({
               displayName: this.form.name
             })
-            .then(() => {this.$router.push({ name: "Login" });});
+            .then(() => {this.$router.push({ name: "login" });});
         })
         .catch(err => {
           this.error = err.message;

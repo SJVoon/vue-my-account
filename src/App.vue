@@ -23,18 +23,20 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn text v-if="!isLogin" @click="onClickPushRoute('login')">
-        <span class="mr-2">Login</span>
-      </v-btn>
-      <v-btn text v-if="!isLogin" @click="onClickPushRoute('register')">
-        <span class="mr-2">Register</span>
-      </v-btn>
+      <div v-if="!isLogin">
+        <v-btn text @click="onClickPushRoute('login')">
+          <span class="mr-2">Login</span>
+        </v-btn>
+        <v-btn text @click="onClickPushRoute('register')">
+          <span class="mr-2">Register</span>
+        </v-btn>
+      </div>
       <v-btn text v-else @click="onClickPushRoute('dashboard')">
         <span class="mr-2">Dashboard</span>
       </v-btn>
     </v-app-bar>
 
-    <router-view class="mt-12"/>
+    <router-view class="mt-12" />
   </v-app>
 </template>
 
@@ -49,14 +51,13 @@ export default {
     },
   },
   methods: {
-    onClickPushRoute(route){
-      if(this.$router.currentRoute.name == route) {
-        return
+    onClickPushRoute(route) {
+      if (this.$router.currentRoute.name == route) {
+        return;
+      } else {
+        this.$router.push(route);
       }
-      else {
-        this.$router.push(route)
-      }
-    }
-  }
+    },
+  },
 };
 </script>

@@ -73,7 +73,7 @@ export default {
       fb.auth
         .signInWithEmailAndPassword(this.form.email, this.form.password)
         .then(data => {
-          this.$router.replace({ name: "Dashboard" });
+          this.$router.replace({ name: "dashboard" });
         })
         .catch(err => {
           this.error = err.message;
