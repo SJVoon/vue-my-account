@@ -14,17 +14,17 @@ const routes = [
   },
   {
     path: '/',
-    name: 'Login',
+    name: 'login',
     component: Login
   },
   {
     path: '/register',
-    name: 'Register',
+    name: 'register',
     component: Register
   },
   {
     path: '/dashboard',
-    name: 'Dashboard',
+    name: 'dashboard',
     component: Dashboard,
     meta: {
       requiresAuth : true
@@ -43,7 +43,7 @@ router.beforeEach((to, from, next) => {
   const currentUser = fb.auth.currentUser
 
   if (requiresAuth && !currentUser) {
-      next('/login')
+      next('/')
   } else if (requiresAuth && currentUser) {
       next()
   } else {

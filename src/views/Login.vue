@@ -1,59 +1,62 @@
 <template>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-header">Login</div>
-          <div class="card-body">
-            <div v-if="error" class="alert alert-danger">{{error}}</div>
-            <form action="#" @submit.prevent="submit">
-              <div class="form-group row">
-                <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
+  <v-container>
+    <v-card
+      class="mx-auto mt-12"
+      max-width="344"
+    >
+      <v-card-text>
+        <h2 class="mb-4">Login</h2>
+        <v-form
+          ref="form"
+          lazy-validation
+        >
+          <v-text-field
+            v-model="form.email"
+            label="E-mail"
+            required
+          ></v-text-field>
 
-                <div class="col-md-6">
-                  <input
-                    id="email"
-                    type="email"
-                    class="form-control"
-                    name="email"
-                    value
-                    required
-                    autofocus
-                    v-model="form.email"
-                  />
-                </div>
-              </div>
+          <v-text-field
+            v-model="form.password"
+            label="Password"
+            type="password"
+            required
+          ></v-text-field>
 
-              <div class="form-group row">
-                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+          <v-btn
+            color="success"
+            class="mr-4"
+            @click="validate"
+          >
+            Login
+          </v-btn>
 
-                <div class="col-md-6">
-                  <input
-                    id="password"
-                    type="password"
-                    class="form-control"
-                    name="password"
-                    required
-                    v-model="form.password"
-                  />
-                </div>
-              </div>
+          <v-btn
+            color="error"
+            class="mr-4"
+            @click="reset"
+          >
+            Reset
+          </v-btn>
 
-              <div class="form-group row mb-0">
-                <div class="col-md-8 offset-md-4">
-                  <button type="submit" class="btn btn-primary">Login</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+          <v-alert
+            class="mt-4"
+            dense
+            outlined
+            type="error"
+            v-if="error"
+          >
+            {{error}}
+          </v-alert>
+        </v-form>
+      </v-card-text>       
+    </v-card>
+  </v-container>
 </template>
 
 <script>
 import firebase from "firebase";
+const fb = require('../services/firebase.service')
 
 export default {
   data() {
@@ -67,8 +70,7 @@ export default {
   },
   methods: {
     submit() {
-      firebase
-        .auth()
+      fb.auth
         .signInWithEmailAndPassword(this.form.email, this.form.password)
         .then(data => {
           this.$router.replace({ name: "Dashboard" });
@@ -76,7 +78,16 @@ export default {
         .catch(err => {
           this.error = err.message;
         });
-    }
+    },
+    validate () {
+      if(this.$refs.form.validate())
+        this.submit()
+      else
+        return
+    },
+    reset () {
+      this.$refs.form.reset()
+    },
   }
 };
 </script>
