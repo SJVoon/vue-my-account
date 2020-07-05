@@ -31,8 +31,8 @@
           <span class="mr-2">Register</span>
         </v-btn>
       </div>
-      <v-btn text v-else @click="onClickPushRoute('dashboard')">
-        <span class="mr-2">Dashboard</span>
+      <v-btn text v-else @click="onClickLogout()">
+        <span class="mr-2">Logout</span>
       </v-btn>
     </v-app-bar>
 
@@ -42,6 +42,8 @@
 
 <script>
 import STORE_CONSTANT from "./store/constant";
+import firebase from "firebase";
+const fb = require("./services/firebase.service");
 
 export default {
   name: "App",
@@ -57,6 +59,15 @@ export default {
       } else {
         this.$router.push(route);
       }
+    },
+    onClickLogout() {
+      fb.auth
+        .signOut()
+        .then(() => {
+          this.$router.replace({
+            name: "login",
+          });
+        });
     },
   },
 };

@@ -1,25 +1,21 @@
 <template>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-header">Hi {{ user }}</div>
-          <div class="card-body">
-            <button @click="signOut">Sign out</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <v-container>
+    <h1 class="mt-8">{{ displayName }}</h1>
+  </v-container>
 </template>
 
 <script>
 import firebase from "firebase";
 import STORE_CONSTANT from "../store/constant";
+const fb = require("../services/firebase.service");
 
 const computed = {
-  user() {
-    return this.$store.getters[`${STORE_CONSTANT.GETTERS.USER}`].data.displayName;
+  displayName() {
+    return this.$store.getters[`${STORE_CONSTANT.GETTERS.USER}`].data
+      .displayName;
+  },
+  userId() {
+    return this.$store.getters[`${STORE_CONSTANT.GETTERS.USER_ID}`];
   },
 };
 
@@ -27,22 +23,24 @@ const data = function() {
   return {};
 };
 
-const methods = {
-  signOut() {
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        this.$router.replace({
-          name: "Login",
-        });
-      });
-  },
+const methods = {};
+
+const mounted = function() {
+  fb.transactionsRef.child(this.userId).on(
+    "value",
+    function(snapshot) {
+      console.log(snapshot.val());
+    },
+    function(errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    }
+  );
 };
 
 export default {
   computed,
   data,
   methods,
+  mounted,
 };
 </script>

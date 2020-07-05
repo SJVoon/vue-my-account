@@ -13,20 +13,20 @@ const firebaseConfig = {
   measurementId: "G-NZG4B2E62N"
 };
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+const fire = firebase.initializeApp(firebaseConfig);
 
 // firebase utils
-const db = firebase.database()
-const auth = firebase.auth()
+const db = fire.database()
+const auth = fire.auth()
 const currentUser = auth.currentUser
 
-const transactionsCollection = db.ref('transactions')
-const balanceCollection = db.ref('balance')
+const transactionsRef = db.ref('transactions')
+const balanceRef = db.ref('balance')
 
 export {
     db,
     auth,
     currentUser,
-    transactionsCollection,
-    balanceCollection
+    transactionsRef,
+    balanceRef
 }
