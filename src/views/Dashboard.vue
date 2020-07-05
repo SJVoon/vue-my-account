@@ -1,13 +1,24 @@
 <template>
   <v-container>
-    <h1 class="mt-8">{{ displayName }}</h1>
+    <h2 class="ma-8">Hi {{ displayName }}</h2>
+    <v-layout>
+      <v-btn @click="openModal = true">Create Transaction</v-btn>
+    </v-layout>
+    <v-overlay :value="openModal">
+      <CreateTransaction v-if="openModal" @close="closeModal" />
+    </v-overlay>
   </v-container>
 </template>
 
 <script>
+import { CreateTransaction } from "../components/";
 import firebase from "firebase";
 import STORE_CONSTANT from "../store/constant";
 const fb = require("../services/firebase.service");
+
+const components = {
+  CreateTransaction,
+};
 
 const computed = {
   displayName() {
@@ -20,13 +31,19 @@ const computed = {
 };
 
 const data = function() {
-  return {};
+  return {
+    openModal: false,
+  };
 };
 
-const methods = {};
+const methods = {
+  closeModal() {
+    this.openModal = false;
+  },
+};
 
 const mounted = function() {
-  fb.transactionsRef.child(this.userId).on(
+  fb.transactionsRef.child(this.userId).once(
     "value",
     function(snapshot) {
       console.log(snapshot.val());
@@ -38,6 +55,7 @@ const mounted = function() {
 };
 
 export default {
+  components,
   computed,
   data,
   methods,
