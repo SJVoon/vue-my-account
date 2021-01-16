@@ -73,7 +73,21 @@ export default {
         email: "",
         password: ""
       },
-      error: null
+      error: null,
+      defaultAccountList:[
+        { accountName:'Cash', isVisible: true},
+        { accountName:'Bank', isVisible: true},
+        { accountName:'Card', isVisible: true},
+        { accountName:'Savings', isVisible: true},
+        { accountName:'Loan', isVisible: true},
+      ],
+      defaultCategoryList:[
+        { categoryName:'Food', isVisible: true},
+        { categoryName:'Entertainment', isVisible: true},
+        { categoryName:'Housing', isVisible: true},
+        { categoryName:'Transportation', isVisible: true},
+        { categoryName:'Savings', isVisible: true},
+      ],
     };
   },
   methods: {
@@ -81,15 +95,36 @@ export default {
       fb.auth
         .createUserWithEmailAndPassword(this.form.email, this.form.password)
         .then(data => {
+          console.log(data)
           data.user
             .updateProfile({
               displayName: this.form.name
             })
-            .then(() => {this.$router.push({ name: "login" });});
+            .then(() => {
+              this.createAccountList(data.user.uid);
+              this.createCategoryList(data.user.uid);
+              this.$router.push({ name: "login" });
+            })
         })
         .catch(err => {
           this.error = err.message;
         });
+    },
+    async createAccountList(uid) {
+      for (const acc of this.defaultAccountList) {
+        await fb.accountRef
+                .child(uid)
+                .push()
+                .set(acc)
+      }
+    },
+    async createCategoryList(uid) {
+      for(const cat of this.defaultCategoryList) {
+        await fb.categoryRef
+                .child(uid)
+                .push()
+                .set(cat)
+      }
     },
     validate () {
       if(this.$refs.form.validate())

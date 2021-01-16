@@ -21,12 +21,14 @@ const auth = fire.auth()
 const currentUser = auth.currentUser
 
 const transactionsRef = db.ref('transactions')
-const balanceRef = db.ref('balance')
+const accountRef = db.ref('account')
+const categoryRef = db.ref('category')
 
 export {
     db,
     auth,
     currentUser,
     transactionsRef,
-    balanceRef
+    categoryRef,
+    accountRef
 }
