@@ -1,92 +1,88 @@
 <template>
-  <v-container>
-      <v-row class="ma-4" justify="start">
-        <v-col cols=2>
-          <v-btn @click="openModal = true">Create Transaction</v-btn>
-        </v-col>
-        <v-col cols=2>
-          <v-btn @click="openModalAccount = true">Customize Account</v-btn>
-        </v-col>
-        <v-col cols=2>
-          <v-btn @click="openModalCategory = true">Customize Category</v-btn>
-        </v-col>
-      </v-row>
-      <v-row class="ma-4">
-        <v-col cols=10>
-          <v-card>
-            <v-card-title>
-              Money In (RM)
-              <v-spacer></v-spacer>
-              Money Out (RM)
-              <v-spacer></v-spacer>
-              Balance (RM)
-            </v-card-title>
-            <v-card-title>
-              {{transactionsTypeAmt.moneyIn}}
-              <v-spacer/>
-              {{transactionsTypeAmt.moneyOut}}
-              <v-spacer/>
-              {{transactionsTypeAmt.balance}}
-            </v-card-title>
-          </v-card>
-        </v-col>
-        <v-col cols=10>
-          <v-card>
-            <v-card-title>
-              Transaction History
-              <v-spacer></v-spacer>
-              <v-text-field
-                v-model="searchKeyword"
-                append-icon="mdi-magnify"
-                label="Search"
-                single-line
-                hide-details
-              ></v-text-field>
-            </v-card-title>
-            <template>
-              <v-data-table
-                :headers="headers"
-                :items="transactionsList"
-                :search="searchKeyword"
-              >
-                <template v-slot:item.actions="{ item }">
-                  <v-icon
-                    small
-                    class="mr-2"
-                    @click="editItem(item)"
-                  >
-                    mdi-pencil
-                  </v-icon>
-                  <v-icon
-                    small
-                    @click="deleteItem(item)"
-                  >
-                    mdi-delete
-                  </v-icon>
-                </template>
-              </v-data-table>
-            </template>
-          </v-card>
-        </v-col>
-      </v-row>
-    <v-overlay :value="openModal">
-      <CreateTransaction v-if="openModal" @close="closeModal" />
-    </v-overlay>
-    <v-overlay :value="openModalAccount">
-      <CustomizeAccount v-if="openModalAccount" @close="closeModalAccount" />
-    </v-overlay>
-    <v-overlay :value="openModalCategory">
-      <CustomizeCategory v-if="openModalCategory" @close="closeModalCategory" />
-    </v-overlay>
-    <v-overlay :value="overlay">
-      <v-progress-circular indeterminate size="64"></v-progress-circular>
-    </v-overlay>
-  </v-container>
+    <v-container>
+        <v-row class="ma-4" justify="start">
+            <v-col cols=2>
+                <v-btn @click="openModal = true">Create Transaction</v-btn>
+            </v-col>
+            <v-col cols=2>
+                <v-btn @click="openModalAccount = true">Customize Account</v-btn>
+            </v-col>
+            <v-col cols=2>
+                <v-btn @click="openModalCategory = true">Customize Category</v-btn>
+            </v-col>
+        </v-row>
+        <v-row class="ma-4">
+            <v-col cols=10>
+                <v-card>
+                    <v-card-title>
+                        Money In (RM)
+                        <v-spacer></v-spacer>
+                        Money Out (RM)
+                        <v-spacer></v-spacer>
+                        Balance (RM)
+                    </v-card-title>
+                    <v-card-title>
+                        {{transactionsTypeAmt.moneyIn}}
+                        <v-spacer />
+                        {{transactionsTypeAmt.moneyOut}}
+                        <v-spacer />
+                        {{transactionsTypeAmt.balance}}
+                    </v-card-title>
+                </v-card>
+            </v-col>
+            <v-col cols=10>
+                <v-card>
+                    <v-card-title>
+                        Transaction History
+                        <v-spacer></v-spacer>
+                        <v-text-field v-model="searchKeyword"
+                                      append-icon="mdi-magnify"
+                                      label="Search"
+                                      single-line
+                                      hide-details></v-text-field>
+                    </v-card-title>
+                    <template>
+                        <v-data-table :headers="headers"
+                                      :items="transactionsList"
+                                      :search="searchKeyword">
+                            <template v-slot:item.actions="{ item }">
+                                <v-icon small
+                                        class="mr-2"
+                                        @click="editItem(item)">
+                                    mdi-pencil
+                                </v-icon>
+                                <v-icon small
+                                        @click="deleteItem(item)">
+                                    mdi-delete
+                                </v-icon>
+                            </template>
+                        </v-data-table>
+                    </template>
+                </v-card>
+            </v-col>
+        </v-row>
+        <v-overlay :value="openModal">
+            <CreateTransaction v-if="openModal" @close="closeModal" />
+        </v-overlay>
+        <v-overlay :value="openModalAccount">
+            <CustomizeAccount v-if="openModalAccount" @close="closeModalAccount" />
+        </v-overlay>
+        <v-overlay :value="openModalCategory">
+            <CustomizeCategory v-if="openModalCategory" @close="closeModalCategory" />
+        </v-overlay>
+        <v-overlay :value="openModalCategory">
+            <CreateTransaction2 v-if="openModalCategory" @close="closeModalCategory" />
+        </v-overlay>
+        <v-overlay :value="overlay">
+            <v-progress-circular indeterminate size="64"></v-progress-circular>
+        </v-overlay>
+
+    </v-container>
 </template>
 
 <script>
 import _ from "lodash";
-import { CreateTransaction, CustomizeAccount, CustomizeCategory } from "../components/";
+import { CreateTransaction, CustomizeAccount, CustomizeCategory, CreateTransaction2 } from "../components/";
 import firebase from "firebase";
 import STORE_CONSTANT from "../store/constant";
 import Constant from "../constant/constant";

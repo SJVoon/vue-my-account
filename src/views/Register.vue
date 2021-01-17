@@ -1,7 +1,7 @@
 <template>
 <v-container>
     <v-card
-      class="mx-auto mt-12"
+      class="mx-auto mt-12 card-login"
       max-width="344"
     >
       <v-card-text>
@@ -14,12 +14,14 @@
             v-model="form.name"
             label="Name"
             required
+                        prepend-inner-icon="mdi-account-circle-outline"
           ></v-text-field>
 
           <v-text-field
             v-model="form.email"
             label="E-mail"
-            required
+            required 
+            prepend-inner-icon="mdi-email-outline"
           ></v-text-field>
 
           <v-text-field
@@ -27,19 +29,20 @@
             label="Password"
             type="password"
             required
+            prepend-inner-icon="mdi-lock-outline"
           ></v-text-field>
 
           <v-btn
-            color="success"
-            class="mr-4"
+            color="#48AAAD"
+            class="mr-4 login-success"
             @click="validate"
           >
             Register
           </v-btn>
 
           <v-btn
-            color="error"
-            class="mr-4"
+            color="#59788E"
+            class="mr-4 login-reset"
             @click="reset"
           >
             Reset

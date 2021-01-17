@@ -1,97 +1,82 @@
 <template>
-  <v-container class="container">
-    <h2>Add New Transaction</h2>
+  <v-container class="container-modal">
+    <h2 class="model-title">Add New Transaction</h2>
 
-    <v-tabs v-model="tab" background-color="primary" dark>
+    <v-tabs v-model="tab" background-color="#1f456E" dark>
       <v-tab>Money In</v-tab>
       <v-tab>Money Out</v-tab>
       <v-tab>Transfer</v-tab>
     </v-tabs>
 
     <v-tabs-items v-model="tab">
-      <v-tab-item v-for="type in formType" :key="type" class="pa-4">
-        <v-form :ref="type" lazy-validation>
-          <v-menu
-            v-model="isOpenDatePicker"
-            :close-on-content-click="false"
-            :nudge-right="40"
-            transition="scale-transition"
-            offset-y
-            min-width="290px"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-text-field
-                v-model="form.date.fieldValue"
-                label="Date"
-                readonly
-                v-bind="attrs"
-                v-on="on"
-              ></v-text-field>
-            </template>
-            <v-date-picker
-              v-model="form.date.fieldValue"
-              @input="isOpenDatePicker = false"
-            ></v-date-picker>
-          </v-menu>
+        <v-tab-item v-for="type in formType" :key="type" class="pa-4">
+            <v-form :ref="type" lazy-validation>
+                <v-menu v-model="isOpenDatePicker"
+                        :close-on-content-click="false"
+                        :nudge-right="40"
+                        transition="scale-transition"
+                        offset-y
+                        min-width="290px">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-text-field v-model="form.date.fieldValue"
+                                      label="Date"
+                                      readonly
+                                      v-bind="attrs"
+                                      v-on="on"></v-text-field>
+                    </template>
+                    <v-date-picker v-model="form.date.fieldValue"
+                                   @input="isOpenDatePicker = false"></v-date-picker>
+                </v-menu>
 
-          <v-select
-            v-if="tab != 2"
-            v-model="form.account.fieldValue"
-            label="Account"
-            :items="accountList"
-            item-value="id"
-            item-text="accountName"
-            :rules="form.account.rules"
-          ></v-select>
+                <v-select v-if="tab != 2"
+                          v-model="form.account.fieldValue"
+                          label="Account"
+                          :items="accountList"
+                          item-value="id"
+                          item-text="accountName"
+                          append-icon="mdi-chevron-down"
+                          :rules="form.account.rules"></v-select>
 
-          <v-select
-            v-if="tab != 2"
-            v-model="form.category.fieldValue"
-            label="Category"
-            :items="categoryList"
-            item-value="id"
-            item-text="categoryName"
-            :rules="form.category.rules"
-          ></v-select>
+                <v-select v-if="tab != 2"
+                          v-model="form.category.fieldValue"
+                          label="Category"
+                          :items="categoryList"
+                          item-value="id"
+                          item-text="categoryName"
+                          append-icon="mdi-chevron-down"
+                          :rules="form.category.rules"></v-select>
 
-          <v-select
-            v-if="tab == 2"
-            v-model="form.accountFrom.fieldValue"
-            label="Account From"
-            :items="accountList"
-            item-value="id"
-            item-text="accountName"
-            :rules="form.accountFrom.rules"
-          ></v-select>
+                <v-select v-if="tab == 2"
+                          v-model="form.accountFrom.fieldValue"
+                          label="Account From"
+                          :items="accountList"
+                          item-value="id"
+                          item-text="accountName"
+                          append-icon="mdi-chevron-down"
+                          :rules="form.accountFrom.rules"></v-select>
 
-          <v-select
-            v-if="tab == 2"
-            v-model="form.accountTo.fieldValue"
-            label="Account To"
-            :items="accountList"
-            item-value="id"
-            item-text="accountName"
-            :rules="form.accountTo.rules"
-          ></v-select>
+                <v-select v-if="tab == 2"
+                          v-model="form.accountTo.fieldValue"
+                          label="Account To"
+                          :items="accountList"
+                          item-value="id"
+                          item-text="accountName"
+                          append-icon="mdi-chevron-down"
+                          :rules="form.accountTo.rules"></v-select>
 
-          <v-text-field
-            v-model="form.amount.fieldValue"
-            label="Amount"
-            :rules="form.amount.rules"
-          ></v-text-field>
+                <v-text-field v-model="form.amount.fieldValue"
+                              label="Amount"
+                              :rules="form.amount.rules"></v-text-field>
 
-          <v-text-field
-            v-model="form.content.fieldValue"
-            label="Content"
-            :rules="form.content.rules"
-          ></v-text-field>
-        </v-form>
-      </v-tab-item>
+                <v-text-field v-model="form.content.fieldValue"
+                              label="Content"
+                              :rules="form.content.rules"></v-text-field>
+            </v-form>
+
+            <v-btn @click="save" class="button-save">Save</v-btn>
+            <v-btn @click="close(false)" class="button-close">Close</v-btn>
+        </v-tab-item>
     </v-tabs-items>
-
-    <v-btn color="blue darken-3" @click="save">Save</v-btn>
-
-    <v-btn color="error" @click="close(false)">Close</v-btn>
   </v-container>
 </template>
 
@@ -100,6 +85,7 @@ import firebase from "firebase";
 import STORE_CONSTANT from "../store/constant";
 import Constant from "../constant/constant";
 import ValidationRules from "../mixins/validation-rules";
+
 const fb = require("../services/firebase.service");
 
 const computed = {
@@ -260,7 +246,5 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  background-color: cornflowerblue;
-}
+
 </style>

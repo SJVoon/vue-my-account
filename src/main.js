@@ -6,6 +6,7 @@ import store from './store'
 import STORE_CONSTANT from './store/constant'
 import vuetify from './plugins/vuetify';
 const fb = require('./services/firebase.service')
+import './assets/customization.css';
 
 Vue.config.productionTip = false
 

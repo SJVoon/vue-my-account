@@ -1,8 +1,8 @@
 <template>
-  <v-container class="container">
-    <h2>Customize Your Category</h2>
+  <v-container class="container-modal">
+    <h2 class="model-title">Customize Your Category</h2>
 
-    <v-tabs v-model="tab" background-color="primary" dark>
+    <v-tabs v-model="tab" background-color="#1f456E" dark>
       <v-tab>Add New Category</v-tab>
       <v-tab>Edit Category</v-tab>
       <v-tab>Delete Category</v-tab>
@@ -17,8 +17,8 @@
             :rules="form0.categoryName.rules"
           ></v-text-field>
         </v-form>
-        <v-btn color="blue darken-3" @click="addNew">Save</v-btn>
-        <v-btn color="error" @click="close(true)">Close</v-btn>
+        <v-btn @click="addNew" class="button-save">Save</v-btn>
+        <v-btn @click="close(true)" class="button-close">Close</v-btn>
       </v-tab-item>
 
       <v-tab-item class="pa-4">
@@ -29,6 +29,7 @@
             :items="categoryList"
             item-value="id"
             item-text="categoryName"
+            append-icon="mdi-chevron-down"
           >
           </v-select>
           <v-text-field
@@ -37,8 +38,8 @@
             :rules="form1.categoryName.rules"
           ></v-text-field>
         </v-form>
-        <v-btn color="blue darken-3" @click="addEdit">Save</v-btn>
-        <v-btn color="error" @click="close(true)">Close</v-btn>
+        <v-btn @click="addEdit" class="button-save">Save</v-btn>
+        <v-btn @click="close(true)" class="button-close">Close</v-btn>
       </v-tab-item>
 
       <v-tab-item class="pa-4">
@@ -49,11 +50,12 @@
             :items="categoryList"
             item-value="id"
             item-text="categoryName"
+            append-icon="mdi-chevron-down"
           >
           </v-select>
         </v-form>
-        <v-btn color="blue darken-3" @click="del">Delete</v-btn>
-        <v-btn color="error" @click="close(true)">Close</v-btn>
+        <v-btn @click="del" class="button-delete">Delete</v-btn>
+        <v-btn @click="close(true)" class="button-close">Close</v-btn>
       </v-tab-item>
     </v-tabs-items>
   </v-container>
@@ -217,7 +219,4 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  background-color: cornflowerblue;
-}
 </style>

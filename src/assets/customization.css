@@ -1,0 +1,49 @@
+.name-top {
+	margin-left: 10px;
+}
+.card-login {
+	box-shadow: none !important;
+}
+
+.login-success {
+	color: #fff !important;
+}
+
+.login-reset {
+	color: #fff !important;
+}
+
+.container-modal {
+	background-color: #fff;
+	border-radius: 10px;
+	padding: 20px;
+}
+
+.button-save {
+	margin-top: 10px;
+	background-color: #48AAAD !important;
+	color: #fff !important;
+}
+
+.button-close {
+	margin-top: 10px;
+	margin-left: 10px;
+	background-color: #59788E !important;
+	color: #fff !important;
+}
+
+.button-delete {
+	margin-top: 10px;
+	background-color: #c31736 !important;
+	color: #fff !important;
+}
+
+.model-title {
+	margin-bottom: 10px;
+	margin-top: 10px;
+	color: #1f456E;
+}
+
+.v-tabs .v-item-group {
+	border-radius: 10px;
+}
