@@ -54,6 +54,7 @@
             outlined
             type="error"
             v-if="error"
+            icon="mdi-alert-circle-outline"
           >
             {{error}}
           </v-alert>

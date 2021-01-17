@@ -1,13 +1,13 @@
 <template>
     <v-container>
         <v-row class="ma-4" justify="start">
-            <v-col cols=2>
+            <v-col xs=12 md=4>
                 <v-btn @click="openModal = true">Create Transaction</v-btn>
             </v-col>
-            <v-col cols=2>
+            <v-col xs=12 md=4>
                 <v-btn @click="openModalAccount = true">Customize Account</v-btn>
             </v-col>
-            <v-col cols=2>
+            <v-col xs=12 md=4>
                 <v-btn @click="openModalCategory = true">Customize Category</v-btn>
             </v-col>
         </v-row>
